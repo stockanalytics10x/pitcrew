@@ -10,3 +10,14 @@
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
+# Keep class names and packages: renaming moved package-private Kotlin classes and broke start-up.
+-dontobfuscate
+
+# The Pleos Vehicle SDK reads @Deprecated on its own methods by reflection. R8 had stripped
+# kotlin.Deprecated's members, so every capability check failed ("missing element replaceWith")
+# and the app showed no car signals. Keep annotation types and their members.
+-keepattributes *Annotation*,Signature,InnerClasses,EnclosingMethod,RuntimeVisibleAnnotations
+-keep @interface kotlin.** { *; }
+-keep class kotlin.ReplaceWith { *; }
+-keep enum kotlin.DeprecationLevel { *; }
+-keep enum kotlin.annotation.** { *; }

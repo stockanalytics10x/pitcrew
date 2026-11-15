@@ -50,9 +50,15 @@ Pleos Connect(AAOS) 차량에서 동작하는 Kotlin / Jetpack Compose 앱입니
 
 ## APK
 
-- 위치: [`apk/BoxBox_PitCrew_release.apk`](apk/BoxBox_PitCrew_release.apk) (release 빌드, 서명됨, 약 25MB)
+- 위치: [`apk/BoxBox_PitCrew_release.apk`](apk/BoxBox_PitCrew_release.apk) (release 빌드, 서명됨, 약 29MB)
 - 지원 ABI: arm64-v8a(실차), x86_64(에뮬레이터)
-- 설치: 에뮬레이터 창에 APK 파일을 끌어다 놓거나 `adb install -r apk/BoxBox_PitCrew_release.apk`
+- 설치 (권장):
+  ```
+  adb install -i com.android.vending apk/BoxBox_PitCrew_release.apk
+  ```
+  AAOS는 허용된 설치 경로로 설치된 앱에만 주행 중 화면 표시(`distractionOptimized`)를 허용합니다. 에뮬레이터 창에 끌어다 놓아 설치해도 주차(P) 상태의 모든 기능은 정상이며, 주행 중에는 시스템이 화면을 가릴 수 있습니다.
+- 설치 후 설정(⚙)에서 **차량 속도**·**차량 위치** 권한을 허용합니다. 경고등(PRIVATE_CAR_SAFETY)은 서드파티 앱에 허용되지 않는 권한이라 꺼진 상태가 정상입니다.
+- 차량 신호는 Virtual Console(`adb forward tcp:8088 tcp:8088` → http://127.0.0.1:8088)로 바꿀 수 있습니다.
 
 ## 데이터 출처 · 라이선스
 

@@ -49,9 +49,11 @@ android {
     buildTypes {
         release {
             signingConfigs.findByName("release")?.let { signingConfig = it }
+            // Shrink only androidx / kotlinx (kotlin.* is left whole: the Pleos SDK reads Kotlin annotations by reflection). Renaming is off (src/main/keepRules/rules.keep: -dontobfuscate):
+            // with it, R8 moved classes out of their packages and start-up failed with IllegalAccessError.
             optimization {
                 enable = true
-                packageScope = setOf("androidx.**", "kotlin.**", "kotlinx.**")
+                packageScope = setOf("androidx.**", "kotlinx.**")
             }
         }
     }
