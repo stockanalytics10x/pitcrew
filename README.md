@@ -39,8 +39,9 @@ Pleos Connect(AAOS) 차량에서 동작하는 Kotlin / Jetpack Compose 앱입니
 
 | 항목 | 값 |
 |---|---|
-| 에뮬레이터 | Pleos Connect v2.1.0 (Android 14, API 34, x86_64) |
-| 화면 | 가로형 차량 디스플레이 · 1280dp 폭 기준으로 설계, 작은 화면은 비율에 맞춰 축소 |
+| 에뮬레이터 | Pleos Connect v2.1.0 (Android 14, API 34, x86_64, android-automotive) |
+| AVD 설정 | RAM 4GB · Graphics Hardware(`hw.gpu.mode=host`) · Cold boot |
+| 화면 | 2560×1440 px, 160 dpi (앱 영역은 오른쪽 약 1682×1210 px, 왼쪽은 주행 뷰) · 1280dp 폭 기준으로 설계해 작은 창은 비율대로 축소 |
 | Pleos SDK | Vehicle 2.3.2, NaviHelper 3.0.5, FusedLocation 1.1.3, TextToSpeech 3.3.1, SpeechToText 3.3.1 |
 | minSdk / targetSdk | 28 / 37 |
 | 단위 테스트 | 182개 (`app/src/test`) |
