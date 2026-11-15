@@ -1,0 +1,9 @@
+<resources>
+  <string name="app_name">피트크루</string>
+  <string name="title_activity_main">MainActivity</string>
+  <string name="title_activity_pitstop_app.kt">PitstopApp.kt</string>
+  <string name="title_activity_models.kt">Models.kt</string>
+  <string name="title_activity_home_screen.kt">HomeScreen.kt</string>
+  <string name="title_activity_home_components.kt">HomeComponents.kt</string>
+  <string name="title_activity_detail_screen.kt">DetailScreen.kt</string>
+</resources>

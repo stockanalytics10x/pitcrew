@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
+  <uses-permission android:name="android.permission.INTERNET" />
+  <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+  <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
+  <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MICROPHONE" />
+  <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+  <uses-permission android:name="android.permission.RECORD_AUDIO" />
+  <uses-permission android:name="pleos.car.permission.TTS_SERVICE" />
+  <uses-permission android:name="pleos.car.permission.STT_SERVICE" />
+  <uses-permission android:name="android.car.permission.CAR_SPEED" />
+  <uses-permission android:name="android.car.permission.CAR_POWERTRAIN" />
+  <uses-permission android:name="pleos.car.permission.NAVI_ROUTE" />
+  <uses-permission android:name="pleos.car.permission.NAVI_CUSTOM_MAP" />
+  <uses-permission android:name="pleos.car.permission.NAVI_ROUTE_SEARCH" />
+  <uses-permission android:name="pleos.car.permission.FUSED_LOCATION" />
+  <queries><package android:name="ai.pleos.playground.service.navi" /><package android:name="ai.pleos.playground.service.location.fused" /><package android:name="ai.pleos.playground.caas" /><intent><action android:name="android.intent.action.TTS_SERVICE" /></intent></queries>
+  <uses-permission android:name="android.car.permission.CAR_ENERGY" />
+  <uses-permission android:name="pleos.car.permission.CAR_ENERGY" />
+  <uses-permission android:name="pleos.car.permission.CAR_DRIVE" />
+  <uses-permission android:name="pleos.car.permission.CAR_SAFETY" />
+  <uses-permission android:name="pleos.car.permission.PRIVATE_CAR_SAFETY" />
+  <uses-permission android:name="pleos.car.permission.CAR_WINDOWS" />
+  <uses-permission android:name="pleos.car.permission.CONTROL_CAR_WINDOWS" />
+  <uses-permission android:name="pleos.car.permission.CAR_CLIMATE" />
+  <uses-permission android:name="pleos.car.permission.CONTROL_CAR_CLIMATE" />
+  <application android:allowBackup="false" android:dataExtractionRules="@xml/private_data_rules" android:networkSecurityConfig="@xml/network_security_config" android:icon="@mipmap/ic_launcher" android:label="@string/app_name" android:roundIcon="@mipmap/ic_launcher_round" android:supportsRtl="true" android:theme="@style/Theme.WashGuard">
+    <uses-library android:name="android.car" android:required="false" />
+    <!-- Keeps the Pit Wall (car readings, Box call radio) running while the app is behind the navi. -->
+    <service android:name=".PitWallService" android:exported="false" android:foregroundServiceType="specialUse|microphone">
+      <property android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE" android:value="In-car pit wall: watches battery, route and warning lights while driving and speaks short radio calls." />
+    </service>
+    <activity android:name=".MainActivity" android:exported="true" android:label="@string/app_name" android:theme="@style/Theme.WashGuard" android:windowSoftInputMode="adjustResize">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN" />
+        <category android:name="android.intent.category.LAUNCHER" />
+      </intent-filter>
+      <!-- The app has its own driving layout (DriveScreen, Box call banner with two large buttons),
+           so it stays on screen while driving instead of the system blocking screen. -->
+      <meta-data android:name="distractionOptimized" android:value="true" />
+    </activity>
+  </application>
+</manifest>
