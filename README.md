@@ -52,13 +52,19 @@ Pleos Connect(AAOS) 차량에서 동작하는 Kotlin / Jetpack Compose 앱입니
 
 - 위치: [`apk/BoxBox_PitCrew_release.apk`](apk/BoxBox_PitCrew_release.apk) (release 빌드, 서명됨, 약 29MB)
 - 지원 ABI: arm64-v8a(실차), x86_64(에뮬레이터)
-- 설치 (권장):
+- 설치: 에뮬레이터 창에 APK를 끌어다 놓거나
   ```
-  adb install -i com.android.vending apk/BoxBox_PitCrew_release.apk
+  adb install -r apk/BoxBox_PitCrew_release.apk
   ```
-  AAOS는 허용된 설치 경로로 설치된 앱에만 주행 중 화면 표시(`distractionOptimized`)를 허용합니다. 에뮬레이터 창에 끌어다 놓아 설치해도 주차(P) 상태의 모든 기능은 정상이며, 주행 중에는 시스템이 화면을 가릴 수 있습니다.
 - 설치 후 설정(⚙)에서 **차량 속도**·**차량 위치** 권한을 허용합니다. 경고등(PRIVATE_CAR_SAFETY)은 서드파티 앱에 허용되지 않는 권한이라 꺼진 상태가 정상입니다.
 - 차량 신호는 Virtual Console(`adb forward tcp:8088 tcp:8088` → http://127.0.0.1:8088)로 바꿀 수 있습니다.
+
+### 에뮬레이터에서 확인할 때
+
+- 에뮬레이터는 **Cold boot**로 켭니다. Quick boot면 차량 신호(VHAL)가 오지 않을 수 있습니다. 다시 켜면 `adb forward tcp:8088 tcp:8088`도 다시 실행합니다.
+- **주행 중 화면**: Pleos Connect 에뮬레이터는 기어 D에서 외부 설치 앱 화면을 시스템이 가립니다(“주행 중에는 사용할 수 없습니다”). 앱은 기어 D를 정상으로 인식하며, 주행 화면·Box 콜 흐름은 설정(⚙)의 **시연 모드**로 확인할 수 있습니다.
+- **크루 체크(정비)**: 에뮬레이터에서는 “? 점검 신호 대기”가 정상입니다. 경고등과 타이어 공기압 값은 제조사 승인 앱 전용 권한(`PRIVATE_CAR_SAFETY` 등)이 필요하고, 엔진오일·브레이크액·워셔액은 에뮬레이터가 제공하지 않습니다. 앱은 받지 않은 값을 “이상 없음”으로 표시하지 않습니다. 타이어 공기압 경고 → 정비소 안내 흐름은 **시연 모드**에 들어 있습니다(화면에 “시연” 표시).
+- 시연 모드의 값은 실제 차량 값과 구분해 표시하며, 주행 기록 DB에는 저장하지 않습니다.
 
 ## 데이터 출처 · 라이선스
 
