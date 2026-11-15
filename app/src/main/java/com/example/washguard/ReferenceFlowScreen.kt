@@ -754,7 +754,7 @@ private fun RGarageGrid(vehicle:VehicleDataState,range:RangeState,weather:Weathe
             Text("출발 전에 이번 주행과\n차 상태를 한 번에 확인하세요.", color = RInk, fontSize = 18.sp, lineHeight = 26.sp)
         }
         Box(Modifier.weight(1.35f).fillMaxHeight()) {
-            val (carImage, carDesc) = if (pt.usesFuel) R.drawable.garage_sedan to "그랜저 후면 콘셉트 이미지" else R.drawable.garage_ioniq5 to "아이오닉 5 후면 콘셉트 이미지"
+            val (carImage, carDesc) = if (pt.usesFuel) R.drawable.garage_sedan_w to "그랜저 후면 콘셉트 이미지" else R.drawable.garage_ioniq5_w to "아이오닉 5 후면 콘셉트 이미지"
             Image(painterResource(carImage), carDesc, contentScale = ContentScale.Crop, modifier = Modifier.fillMaxSize())
             Box(Modifier.fillMaxSize().background(Brush.horizontalGradient(0f to RBg, .18f to Color.Transparent, .82f to Color.Transparent, 1f to RBg)))
             Box(Modifier.fillMaxSize().background(Brush.verticalGradient(.7f to Color.Transparent, 1f to RBg)))
@@ -870,7 +870,7 @@ private fun RGarageGrid(vehicle:VehicleDataState,range:RangeState,weather:Weathe
             CardHead(null, "CREW CHECK · 차량 점검", null, "전체 보기" to { onOpen("PITSTOP") })
             Row(horizontalArrangement = Arrangement.spacedBy(14.dp), verticalAlignment = Alignment.CenterVertically) {
                 if (crewCheck != null) CarFaultView(crewCheck, null, { onOpen("PITSTOP") }, Modifier.width(96.dp).height(196.dp))
-                else Image(painterResource(R.drawable.pitstop_vehicle_top), "차량 상단 이미지", Modifier.width(96.dp).height(196.dp), contentScale = ContentScale.Fit)
+                else Image(painterResource(R.drawable.pitstop_vehicle_top_w), "차량 상단 이미지", Modifier.width(96.dp).height(196.dp), contentScale = ContentScale.Fit)
                 Column(Modifier.weight(1f).clip(RoundedCornerShape(10.dp)).background(Color(0xFF13222B)).padding(horizontal = 14.dp, vertical = 4.dp)) {
                     crewRows.forEachIndexed { i, r ->
                         if (i > 0) Box(Modifier.fillMaxWidth().height(1.dp).background(RLine.copy(alpha = .6f)))

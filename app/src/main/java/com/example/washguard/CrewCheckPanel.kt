@@ -74,7 +74,7 @@ fun CarFaultView(check: CrewCheck, selectedId: String?, onSelect: (String) -> Un
         val imgH = imgW / CAR_ASPECT
         val left = (maxWidth - imgW) / 2
         val top = (maxHeight - imgH) / 2
-        Image(painterResource(R.drawable.pitstop_vehicle_top), "차량 상단 이미지 · 문제 부위 표시", Modifier.fillMaxSize(), contentScale = ContentScale.Fit)
+        Image(painterResource(R.drawable.pitstop_vehicle_top_w), "차량 상단 이미지 · 문제 부위 표시", Modifier.fillMaxSize(), contentScale = ContentScale.Fit)
         val pulse = rememberInfiniteTransition(label = "fault").animateFloat(1f, 1.3f,
             infiniteRepeatable(tween(650, easing = FastOutSlowInEasing), RepeatMode.Reverse), label = "pulse")
         check.cards.groupBy { it.spot }.forEach { (spot, cards) ->

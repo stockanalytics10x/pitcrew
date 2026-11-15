@@ -20,6 +20,8 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        // Pleos Connect runs on arm64 cars and x86_64 emulators; other ABIs only add size.
+        ndk { abiFilters += listOf("arm64-v8a", "x86_64") }
 
         // EV charger API key (한국환경공단, data.go.kr) from local.properties: EV_CHARGER_KEY=... (not in git).
         val localProps = Properties().apply {
@@ -31,8 +33,22 @@ android {
         buildConfigField("String", "EV_CHARGER_KEY", "\"" + evKey.replace("\\", "\\\\").replace("\"", "\\\"") + "\"")
     }
 
+    // Release signing from keystore/release.properties (not in git). Without it the release build is unsigned.
+    val signProps = Properties().apply {
+        rootProject.file("keystore/release.properties").takeIf { it.exists() }?.inputStream()?.use { load(it) }
+    }
+    signingConfigs {
+        if (signProps.getProperty("storeFile") != null) create("release") {
+            storeFile = rootProject.file("keystore/" + signProps.getProperty("storeFile"))
+            storePassword = signProps.getProperty("storePassword")
+            keyAlias = signProps.getProperty("keyAlias")
+            keyPassword = signProps.getProperty("keyPassword")
+        }
+    }
+
     buildTypes {
         release {
+            signingConfigs.findByName("release")?.let { signingConfig = it }
             optimization {
                 enable = true
                 packageScope = setOf("androidx.**", "kotlin.**", "kotlinx.**")

@@ -50,7 +50,9 @@ Pleos Connect(AAOS) 차량에서 동작하는 Kotlin / Jetpack Compose 앱입니
 
 ## APK
 
-`apk/` 폴더 또는 GitHub Releases에 릴리스 APK를 올립니다.
+- 위치: [`apk/BoxBox_PitCrew_release.apk`](apk/BoxBox_PitCrew_release.apk) (release 빌드, 서명됨, 약 25MB)
+- 지원 ABI: arm64-v8a(실차), x86_64(에뮬레이터)
+- 설치: 에뮬레이터 창에 APK 파일을 끌어다 놓거나 `adb install -r apk/BoxBox_PitCrew_release.apk`
 
 ## 데이터 출처 · 라이선스
 
