@@ -37,9 +37,9 @@ object DemoScenario {
         DemoStep("주행 중 · 타이어 경고", "TPMS 경고등 → 크루가 무전으로 알리고 다음 피트에서 해결해요", "DRIVE", soc = 25, remainingKm = 240.0,
             driving = true, speedKmh = 80, faults = setOf(TPMS),
             radio = "타이어 공기압이 낮아요. 급한 조작을 피하고, {P}에서 공기도 같이 넣을게요."),
-        DemoStep("{P} 도착 · {R} + 공기압", "{R}하는 동안 PIT SERVICE에서 공기 넣을 곳 ‘안내’", "PITSTOP", soc = 25, socEnd = 80, remainingKm = 230.0,
+        DemoStep("{P} 도착 · {R} + 공기압", "{R}하는 동안 타이어 경고 → ‘공기 넣을 곳 찾기’로 가까운 곳 확인", "PITSTOP", soc = 25, socEnd = 80, remainingKm = 230.0,
             faults = setOf(TPMS)),
-        DemoStep("공기압 정상 · 정보 업데이트", "센서가 정상 확인 → ‘여기서 하셨나요?’ 한 번 → 다음 운전자에게 확인된 곳으로", "PITSTOP", soc = 80, remainingKm = 230.0),
+        DemoStep("공기압 정상 · 정보 업데이트", "센서가 공기압 정상 확인 → 타이어 경고 해제 · {E} 80%", "PITSTOP", soc = 80, remainingKm = 230.0),
         DemoStep("다시 출발", "80% · 타이어 정상 → 대구까지 여유 있게 완주", "GARAGE", soc = 80, remainingKm = 230.0)
     )
 

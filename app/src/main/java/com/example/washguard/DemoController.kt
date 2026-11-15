@@ -89,10 +89,12 @@ class DemoController(
     }
 
     private fun sendScene(s: DemoStep) {
-        val gear = if (s.driving) "Drive" else "Park"
+        // The car stays in P during the demo: on the emulator the system covers side-loaded apps in D
+        // ("주행 중에는 사용할 수 없습니다"), which would hide the driving scenes. The app takes drive/park
+        // from the scene itself while the demo runs, and every value on screen is labelled "시연".
         send(
-            "/vehicle/controls?speed_kph=${s.speedKmh}&accelerator_pct=0",
-            "/vehicle/gear?gear=$gear",
+            "/vehicle/controls?speed_kph=0&accelerator_pct=0",
+            "/vehicle/gear?gear=Park",
             "/vehicle/ev-battery?field=charge_switch&value=${s.charging}",
             "/vehicle/ev-battery?field=soc&value=${s.soc}",
             "/vehicle/odometer?remaining_range_m=${(DemoScenario.rangeKm(s.soc.toDouble()) * 1000).toInt()}",

@@ -35,7 +35,7 @@ private val RCyan = Color(0xFF39BCE9)
 private val RGreen = Color(0xFF30CD86)
 
 /** Shown in the header so the running build can be identified on the emulator. */
-const val APP_BUILD_TAG = "1115-FIX"
+const val APP_BUILD_TAG = "1115-SOC"
 val referenceRoutes = setOf("GARAGE", "HOME", "DRIVE", "REPORT", "PITSTOP", "STRATEGY", "STRATEGY_WASH", "SETTINGS", "FINDER", "DRIVE_REPORT", "DRIVE_DONE", "PIT_A", "PIT_B", "PIT_C", "CHARGING")
 
 /** The reference board is rebuilt as native components. Only the vehicle is a raster asset. */

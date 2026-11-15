@@ -101,20 +101,17 @@ fun SettingsPanel(
                 val granted = context.checkSelfPermission(perm) == PackageManager.PERMISSION_GRANTED
                 Row(Modifier.fillMaxWidth().clip(RoundedCornerShape(8.dp)).background(SgTile).padding(horizontal = 14.dp, vertical = 10.dp),
                     verticalAlignment = Alignment.CenterVertically) {
-                    // PRIVATE_* permissions are granted only to apps the carmaker approves; a request just opens settings.
-                    val makerOnly = perm.contains(".PRIVATE_")
-                    Box(Modifier.size(10.dp).clip(CircleShape).background(if (granted) SgGreen else if (makerOnly) SgMuted else SgRed))
+                    Box(Modifier.size(10.dp).clip(CircleShape).background(if (granted) SgGreen else SgRed))
                     Spacer(Modifier.width(12.dp))
                     Column(Modifier.weight(1f)) {
                         Text(label, color = SgInk, fontSize = 15.sp, fontWeight = FontWeight.SemiBold)
                         Text("$use · ${perm.substringAfterLast('.')}", color = SgMuted, fontSize = 12.sp)
                     }
                     if (granted) Text("허용됨", color = SgGreen, fontSize = 13.sp)
-                    else if (makerOnly) Text("제조사 승인 앱 전용", color = SgMuted, fontSize = 13.sp)
                     else Chip("허용 요청", SgOrange, onClick = { onRequest(perm) })
                 }
             }
-            Text("요청해도 창이 뜨지 않으면 시스템 설정의 앱 권한 화면이 열려요. 거기서 허용해 주세요. 경고등 정보는 제조사 승인 앱만 받을 수 있어, 그 대신 공개 신호(타이어 저압·브레이크액·워셔액·출력 제한)로 점검해요.", color = SgMuted, fontSize = 12.sp)
+            Text("요청해도 창이 뜨지 않으면 시스템 설정의 앱 권한 화면이 열려요. 거기서 허용해 주세요.", color = SgMuted, fontSize = 12.sp)
         }
         Section("기타 설정") {
             Text("위치 기록·날씨 지역·API 키 설정 ›", color = SgCyan, fontSize = 14.sp,

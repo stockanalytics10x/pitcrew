@@ -93,28 +93,24 @@ class VehicleDataClient(private val context: Context) {
         }
         try {
             val battery = vehicle.getEvBattery()
-            battery.checkEvBatteryStateOfChargeCapabilities(
-                onComplete = { _ -> dispatch(token) {
-                    try {
-                        battery.getEvBatteryStateOfCharge(
-                            onComplete = { value -> dispatch(token) {
-                                state = state.copy(soc = value?.let { "$it%" } ?: "—", evSeen = state.evSeen || value != null,
-                                    socStatus = if (value == null) "값 없음" else "조회 완료")
-                            } },
-                            onFailed = { fail(token, true, it) }
-                        )
-                        val listener = object : EvBatteryStateOfChargeListener {
-                            override fun onEvBatteryStateOfChargeUpdated(value: Int?) = dispatch(token) {
-                                state = state.copy(soc = value?.let { "$it%" } ?: "—", evSeen = state.evSeen || value != null,
-                                    socStatus = if (value == null) "값 없음" else "실시간 수신")
-                            }
-                            override fun onFailed(e: Exception) { fail(token, true, e) }
-                        }
-                        socListener = listener
-                        battery.registerEvBatteryStateOfCharge(listener)
-                    } catch (error: Exception) { fail(token, true, error) }
-                } }, onFailed = failed
+            // Read and subscribe straight away. After a cold boot the emulator sometimes never answers the
+            // capability check, which left the charge "waiting" for good; a car without the property fails here instead.
+            battery.getEvBatteryStateOfCharge(
+                onComplete = { value -> dispatch(token) {
+                    state = state.copy(soc = value?.let { "$it%" } ?: "—", evSeen = state.evSeen || value != null,
+                        socStatus = if (value == null) "값 없음" else "조회 완료")
+                } },
+                onFailed = failed
             )
+            val listener = object : EvBatteryStateOfChargeListener {
+                override fun onEvBatteryStateOfChargeUpdated(value: Int?) = dispatch(token) {
+                    state = state.copy(soc = value?.let { "$it%" } ?: "—", evSeen = state.evSeen || value != null,
+                        socStatus = if (value == null) "값 없음" else "실시간 수신")
+                }
+                override fun onFailed(e: Exception) { fail(token, true, e) }
+            }
+            // A retry only reads again: the listener is registered once.
+            if (socListener == null) { socListener = listener; battery.registerEvBatteryStateOfCharge(listener) }
         } catch (error: Exception) { failed(error) }
     }
 
